@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Weekend Itinerary</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --bg-color: #f4f4f6;
+            --primary-dark: #1d1d1f;
+            --accent-color: #ff5a5f;
+            --card-bg: #ffffff;
+            --text-muted: #86868b;
+            --success-color: #34c759;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--primary-dark);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        header {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4rem 1rem 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #d2d2d7;
+            margin-top: 0.5rem;
+        }
+
+        #countdown {
+            margin-top: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Layout Wrapper for Side Images */
+        .layout-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Side Galleries (Hidden on mobile) */
+        .side-gallery {
+            display: none;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 250px;
+        }
+
+        .side-gallery img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            object-fit: cover;
+            aspect-ratio: 3/4;
+            background-color: #e5e5ea;
+        }
+
+        /* Show side galleries on desktop */
+        @media (min-width: 900px) {
+            .side-gallery {
+                display: flex;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h2 {
+            border-bottom: 2px solid #e5e5ea;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Event & Checklist Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .time {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .event-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+        }
+
+        .event-desc {
+            color: var(--text-muted);
+            margin: 0 0 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .location-btn {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: #f4f4f6;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .location-btn:hover {
+            background: #e5e5ea;
+        }
+
+        /* Checklist Specific Styles */
+        .checklist-title {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .checkbox-container input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .status-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+            text-align: center;
+        }
+
+        .status-good {
+            background-color: #e8f8ec;
+            color: var(--success-color);
+            display: block;
+            border: 1px solid #ccecd5;
+        }
+
+        .status-bad {
+            background-color: #ffeaea;
+            color: var(--accent-color);
+            display: block;
+            border: 1px solid #ffc2c2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>IT'S YOUR BIRTHDAY</h1>
+        <div class="subtitle">Celebrating the Big Day | March 7, 2026</div>
+        <div id="countdown">Loading timer...</div>
+    </header>
+
+    <div class="layout-wrapper">
+        
+        <div class="side-gallery">
+            <img src="img1.png" alt="Memory 1">
+            <img src="img2.png" alt="Memory 2">
+            <img src="img3.png" alt="Memory 3">
+            <img src="img4.png" alt="Memory 4">
+        </div>
+
+        <div class="container">
+
+            <div class="card">
+                <h3 class="event-title checklist-title">✅ Things you need to do in preparation for your birthday</h3>
+                <p class="event-desc">Let's make sure everything here is done. This is mandatory!</p>
+                
+                <div class="question-block">
+                    <p class="question-text">Have you canceled or rescheduled all your clients for March 7?</p>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="q1" value="yes" onchange="showRadioMessage('msg1', this.value, 'Good! Party mode activated. 🥳', 'Reschedule them now! No working on your birthday. 🛑')"> Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="q1" value="no" onchange="showRadioMessage('msg1', this.value, 'Good! Party mode activated. 🥳', 'Reschedule them now! No working on your birthday. 🛑')"> No
+                        </label>
+                    </div>
+                    <div id="msg1" class="inline-message"></div>
+                </div>
+
+                <div class="question-block">
+                    <p class="question-text">Did you notify the use of your birthday leave?</p>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="q2" value="yes" onchange="showRadioMessage('msg2', this.value, 'Perfect. Let them figure it out without you. 🌴', 'Do it now! The office can survive the weekend. 📧')"> Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="q2" value="no" onchange="showRadioMessage('msg2', this.value, 'Perfect. Let them figure it out without you. 🌴', 'Do it now! The office can survive the weekend. 📧')"> No
+                        </label>
+                    </div>
+                    <div id="msg2" class="inline-message"></div>
+                </div>
+
+                <div class="question-block">
+                    <p class="question-text">Have you chosen what to wear (Something green)?</p>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="q3" value="yes" onchange="showRadioMessage('msg3', this.value, 'Perfect for pics! 🧳', 'Think of something now!')"> Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="q3" value="no" onchange="showRadioMessage('msg3', this.value, 'Perfect for pics! 🧳', 'Think of something now!')"> No
+                        </label>
+                    </div>
+                    <div id="msg3" class="inline-message"></div>
+                </div>
+
+                <div class="question-block">
+                    <p class="question-text">Do you promise not to check work messages on your birthday or do any work?</p>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="q4" value="yes" onchange="showRadioMessage('msg4', this.value, 'Love the boundaries. 📵', 'Put the phone down! This is a strict no-work zone. 🚫')"> Yes
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="q4" value="no" onchange="showRadioMessage('msg4', this.value, 'Love the boundaries. 📵', 'Put the phone down! This is a strict no-work zone. 🚫')"> No
+                        </label>
+                    </div>
+                    <div id="msg4" class="inline-message"></div>
+                </div>
+            </div>
+
+            
+            <h2>Birthday Schedule</h2>
+            
+            <div class="card">
+                <div class="time">9:00 AM</div>
+                <h3 class="event-title">Leave the house</h3>
+                <p class="event-desc">Make sure to be ready. We are going to ride the carousel to SM North. Meet-up outside your dorm.</p>
+                <a href="#" class="location-btn">📍 Jera's House</a>
+            </div>
+            
+            <div class="card">
+                <div class="time">10:30 AM</div>
+                <h3 class="event-title">Movie Reservations</h3>
+                <p class="event-desc">Look what movie is good to watch for later. (The GOAT)</p>
+                <a href="#" class="location-btn">📍 SM North</a>
+            </div>
+
+            <div class="card">
+                <div class="time">12:00 PM</div>
+                <h3 class="event-title">Lunch</h3>
+                <p class="event-desc">We have lunch at the best samgyeopsal restuarant. (Yakiniku Like!). Then get some snacks for the movie. </p>
+                <a href="#" class="location-btn">📍 Yakiniku Like!</a>
+            </div>
+
+            <div class="card">
+                <div class="time">2:00-5:00 PM</div>
+                <h3 class="event-title">Movie or Timezone</h3>
+                <p class="event-desc">We'll watch the movie, then have a timezone date, whichever comes first. </p>
+                <a href="#" class="location-btn">📍 SM North</a>
+            </div>
+
+        </div>
+
+        <div class="side-gallery">
+            <img src="img5.png" alt="Memory 5">
+            <img src="img6.png" alt="Memory 6">
+            <img src="img7.png" alt="Memory 6">
+            <img src="img8.png" alt="Memory 8">
+        </div>
+
+    </div>
+
+    <script>
+        function showRadioMessage(messageBoxId, selectedValue, successText, failText) {
+            const messageBox = document.getElementById(messageBoxId);
+
+            if (selectedValue === 'yes') {
+                messageBox.innerHTML = successText;
+                messageBox.className = "inline-message status-good";
+            } else if (selectedValue === 'no') {
+                messageBox.innerHTML = failText;
+                messageBox.className = "inline-message status-bad";
+            }
+        }
+
+        // Countdown Timer Logic
+        const countDownDate = new Date(2026, 2, 7, 26, 0, 0).getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            document.getElementById("countdown").innerHTML = days + " Days, " + hours + " Hours to go!";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "LET'S PARTY!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
